@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 echo "==> Checking go mod..." && \
     (go mod tidy -diff || (echo "==> Execute \"go mod tidy\" and commit again." && exit 1)) && \
@@ -7,6 +7,9 @@ echo "==> Checking go mod..." && \
     echo "==> Running golangci-lint..." && \
     golangci-lint run && \
     echo "==> Running go test..." && \
-    go test -coverprofile=cover.out ./... && \
+    go test -coverprofile=cover_raw.out ./... && \
     echo "==> Generating test coverage report..." && \
-    go tool cover -html=cover.out -o=cover.html
+    awk 'NR==1 || (!/mocks\// && !/_mock\.go/) {print}' cover_raw.out > cover.out && rm cover_raw.out && \
+    go tool cover -html=cover.out -o=cover.html && \
+    go tool cover -func=cover.out | tee >(cat >&2) | grep "total:" | awk '{if ($3 < 90.0) { print "==> Does not meet the minimum coverage 90%"; exit 1 }}' && \
+    rm cover.out
