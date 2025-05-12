@@ -1,13 +1,16 @@
-<!-- This repository implements ... -->
+## Introduction
 
-<!-- Remember to change go.mod -->
+This is a template repository for go projects.
 
-To develop:
+## Setup
 
-1. Use go version specified in `go.mod` and `.tool-versions`. You can use [asdf](https://github.com/asdf-vm/asdf) to manage multiple versions.
-2. Install [mockgen](https://github.com/uber-go/mock). If you are using asdf to manage versions, execute `asdf reshim golang` after installing mockgen.
-3. Install [wire](https://github.com/google/wire). If you are using asdf to manage versions, execute `asdf reshim golang` after installing wire.
-4. Install [golangci-lint](https://golangci-lint.run/welcome/install/).
-5. Execute the following commands to install git hooks:
-  - Pre-commit hook will run checks and tests before committing: `ln -s ../../githooks/pre-commit .git/hooks/`
-  - Commit-msg hook will check where commit message conforms to [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/): `ln -s ../../githooks/commit-msg .git/hooks/`
+Execute the following commands to install git hooks:
+
+1. `ln -s ../../githooks/pre-commit .git/hooks/`: Run checks and tests before committing.
+2. `ln -s ../../githooks/commit-msg .git/hooks/`: Check whether the commit message conforms to [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
+The pre-commit hook requires the following tools to be installed:
+
+1. [mockgen](https://github.com/uber-go/mock): Generate mock files.
+2. [wire](https://github.com/google/wire): Generate dependency injection files.
+3. [golangci-lint](https://golangci-lint.run/welcome/install/): Linters.
